@@ -1,0 +1,111 @@
+#+TITLE: Accounting for preferential sampling in fishery-dependent indices of abundance
+
+* Abstract
+
+# Context
+Indices of abundance provide an important measure of relative abundance over
+time. While these indices are most often estimated using fishery-independent
+survey data, this is not feasible for all fisheries. Preferential sampling by
+the fishery-dependent vessels targeting areas of higher abundance may lead to
+biased indices of abundance.
+# Central question
+By accounting for the association between fishing effort and abundance, it is
+possible to reduce bias in indices of abundance derived from fishery-dependent
+data.
+# What's known
+# Reasons, rationale, goals
+# Methods
+A statistical model is developed that models fishing locations as a
+spatiotemporal point process and accounts for the association between effort
+intensity and abundance.
+# Findings, results, arguments
+Accounting for preferential sampling over time can improve indices of abundance
+for fisheries where only fishery-dependent data are available.
+# Significance and implications
+Better indices of abundance can improve scientific advice provided to managers.
+
+* Introduction
+** Why are indices of abundance important?
+
+** Which fisheries do not have fishery-independent surveys?
+
+** What are the potential problems with using fishery-dependent data in indices of abundance?
+
+** Why is preferential sampling particularly problematic?
+
+** How can we account for preferential sampling in an index standardization model?
+- Include a point process to model fishing effort distribution, associate that
+  with abundance.
+
+** What are the potential weak points to this method?
+- "sweep" of effort implies low abundance in areas that have not been fished
+  yet. May not be appropriate for developing fisheries.
+- Possible to include multiple lag association between point process intensity
+  and abundance? e.g. so that high intensity this year → high abundance this
+  year, but high intensity in past years → low abundance this year due to
+  depletion?
+
+* Methods
+
+** Operating model
+
+** Estimation method
+- Observation likelihood
+  $$C_i \sim \operatorname{compound Poisson gamma}(\mu, p, \phi)$$
+- Effort point process
+  $$E \sim \operatorname{Poisson}(\lambda_t(s))$$
+  $$\log{\lambda(s)} \sim \operatorname{MVN}(m, Q^{-1}_\lambda)$$
+  $\lambda$ is SPDE spatial and AR1 temporal?
+- Linear predictors
+  $$\log(\mu_t(s)) = a + b \lambda_t(s) + A_\omega \omega + A_\epsilon
+  \epsilon + Q \xi$$
+- Spatial and spatiotemporal abundance
+  $$\omega \sim \operatorname{MVN}(0, Q_\omega^{-1})$$
+  $$\epsilon \sim \operatorname{MVN}(0, Q_\epsilon^{-1})$$
+- Index estimation
+  $$I_t = \sum_\mathcal{S}
+
+The ~nopref~ EM fixes $b = 0$, while the ~pref~ EM estimates $b$.
+
+** Case study
+Two options here:
+*** Option 1: no fishery-independent survey available
+Get data from a fishery with no fishery-indepedent survey, possibly one of the
+tuna fisheries, and estimate indices of abundance. Compare to each other and
+most recent stock assessment.
+*** Option 2: fishery-independent survey available
+Estimate indices of abundance using these EMs and only fishery-dependent
+catches, then compare to index estimated using only fishery-independent data to
+provide a baseline.
+
+* Results
+
+** Table 1
+Table of notation
+
+** Figure 1
+Compare the bias of the indices produced by each EM.
+
+** Figure 2
+Compare the error of the indices produced by each EM.
+
+** Figure 3
+Case study index of abundance.
+
+* Discussion
+
+** Did the ~pref~ EM correct bias?
+
+** Importance of temporal dependence?
+Was it more important to model temporal dependence in abundance ($\epsilon$) or effort
+distribution ($\lambda$)?
+
+** How did including ~pref~ affect error of index estimates?
+
+** Why did case study indices produced by each EM differ?
+
+** When should this method be applied?
+
+** How can this method be extended?
+
+* References
